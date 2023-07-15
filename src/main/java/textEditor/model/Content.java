@@ -3,11 +3,8 @@ package textEditor.model;
 import textEditor.model.enums.ContentType;
 import textEditor.model.enums.StyleType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
 /**
  * Represents content on a page
@@ -51,6 +48,22 @@ public class Content {
     }
 
     /**
+     * Initializes Content with all information given after finding the content's
+     * associated styling.
+     *
+     * @param id this content's unique identification
+     * @param type the type of the content
+     * @param value the value (i.e. text) of the content
+     * @param stylingPerId a map of content id's and their associated styling
+     */
+    public Content(String id, ContentType type, String value, HashMap<String, Map<StyleType, String>> stylingPerId) {
+        this.id = id;
+        this.type = type;
+        this.value = value;
+        this.styling = findMatchingStyle(id, stylingPerId);
+    }
+
+    /**
      * Randomly generates an id for this content
      *
      * @return the random id
@@ -66,6 +79,17 @@ public class Content {
             id.append(this.alphaNumeric.charAt(this.idRandomizer.nextInt(36)));
         }
         return type + id;
+    }
+
+    /**
+     * Finds the matching styling for the given id
+     *
+     * @param id a content's unique identification
+     * @param stylingPerId a map of content id's and their associated styling
+     * @return the matching styling
+     */
+    public Map<StyleType, String> findMatchingStyle(String id, Map<String, Map<StyleType, String>> stylingPerId) {
+        return stylingPerId.get(id);
     }
 
     /**
