@@ -1,4 +1,4 @@
-package textEditor.model.io;
+package textEditor.model.io.writers;
 
 import java.io.File;
 

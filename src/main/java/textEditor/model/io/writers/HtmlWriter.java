@@ -1,4 +1,6 @@
-package textEditor.model.io;
+package textEditor.model.io.writers;
+
+import textEditor.model.io.writers.FileWriter;
 
 import java.io.File;
 import java.nio.file.Files;
