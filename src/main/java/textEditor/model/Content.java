@@ -60,7 +60,7 @@ public class Content {
         this.id = id;
         this.type = type;
         this.value = value;
-        this.styling = findMatchingStyle(id, stylingPerId);
+        this.styling = findMatchingStyle(stylingPerId);
     }
 
     /**
@@ -82,14 +82,13 @@ public class Content {
     }
 
     /**
-     * Finds the matching styling for the given id
+     * Finds the matching styling based on this content's id
      *
-     * @param id a content's unique identification
-     * @param stylingPerId a map of content id's and their associated styling
+     * @param stylingPerId a map of content ids and their associated styling
      * @return the matching styling
      */
-    public Map<StyleType, String> findMatchingStyle(String id, Map<String, Map<StyleType, String>> stylingPerId) {
-        return stylingPerId.get(id);
+    public Map<StyleType, String> findMatchingStyle(Map<String, Map<StyleType, String>> stylingPerId) {
+        return stylingPerId.get(this.id);
     }
 
     /**
