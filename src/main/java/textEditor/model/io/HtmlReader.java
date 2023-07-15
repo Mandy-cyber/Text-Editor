@@ -1,4 +1,4 @@
 package textEditor.model.io;
 
-public class HtmlReader {
+public class HtmlReader implements FileReader {
 }

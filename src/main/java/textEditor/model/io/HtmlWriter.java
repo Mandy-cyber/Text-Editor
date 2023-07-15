@@ -1,4 +1,4 @@
 package textEditor.model.io;
 
-public class HtmlWriter {
+public class HtmlWriter implements FileWriter {
 }

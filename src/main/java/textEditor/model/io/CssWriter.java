@@ -1,4 +1,4 @@
 package textEditor.model.io;
 
-public class CssWriter {
+public class CssWriter implements FileWriter {
 }
