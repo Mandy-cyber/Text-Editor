@@ -54,12 +54,28 @@ public class PageFile {
     }
 
     /**
-     * Creates a string representation of this page file
+     * Creates the html for this page
      *
-     * @return the string representation (including the html tags)
+     * @return the string of html for this page
      */
-    public String toString() {
-        // TODO: implement this
-        return "";
+    public String toHtml() {
+        StringBuilder html = new StringBuilder();
+        for (Content content: pageContent) {
+            html.append(content.toHtml());
+        }
+        return html.toString();
+    }
+
+    /**
+     * Creates the css for this page
+     *
+     * @return the string of css for this page
+     */
+    public String toCss() {
+        StringBuilder css = new StringBuilder();
+        for (Content content: pageContent) {
+            css.append(content.toCss());
+        }
+        return css.toString();
     }
 }
