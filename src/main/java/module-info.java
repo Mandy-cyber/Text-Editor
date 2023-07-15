@@ -1,7 +1,7 @@
 /**
  * Contains all the data used needed to build and use the module.
  */
-module personalLibrary {
+module textEditor {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -13,8 +13,8 @@ module personalLibrary {
     requires java.desktop;
     requires org.jetbrains.annotations;
 
-    opens starterCode to javafx.fxml;
-    exports starterCode;
+    opens textEditor to javafx.fxml;
+    exports textEditor;
 }
 
 

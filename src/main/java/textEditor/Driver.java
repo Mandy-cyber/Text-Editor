@@ -1,4 +1,4 @@
-package starterCode;
+package textEditor;
 
 public class Driver {
 
