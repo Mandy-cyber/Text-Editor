@@ -60,12 +60,7 @@ public enum ContentType {
     /**
      * Equivalent of html  'u' tag
      */
-    UNDERLINE(new ArrayList<>(List.of("<u>", "</u>"))),
-
-    /**
-     * Equivalent of html 'link' tag
-     */
-    STYLE_LINK(new ArrayList<>(List.of("<link>")));
+    UNDERLINE(new ArrayList<>(List.of("<u>", "</u>")));
 
     private final ArrayList<String> htmlTags;
 
