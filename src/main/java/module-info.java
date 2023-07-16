@@ -18,6 +18,7 @@ module textEditor {
     exports textEditor;
     exports textEditor.controller;
     exports textEditor.model;
+    exports textEditor.model.enums;
     exports textEditor.model.io.readers;
     exports textEditor.model.io.writers;
     exports textEditor.view;
