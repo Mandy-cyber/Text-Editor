@@ -1,15 +1,13 @@
 package textEditor.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import textEditor.model.PageFile;
 
-import java.awt.*;
 
 /**
  * Represents a tool for controlling the display and functionality of
@@ -40,10 +38,20 @@ public class EditorController extends PageController {
     private Button copyButton;
     @FXML
     private Button pasteButton;
-    // TEXT AREA RELATED
+    // TAB PANE RELATED
     //-----------------------------
     @FXML
-    private TextArea writingArea;
+    private TabPane tabPane;
+    // edit text
+    @FXML
+    private Tab editTextTab;
+    @FXML
+    private TextArea editArea;
+    // preview text
+    @FXML
+    private Tab previewTextTab;
+    @FXML
+    private VBox previewArea;
 
 
 
