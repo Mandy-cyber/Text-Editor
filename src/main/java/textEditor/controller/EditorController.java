@@ -32,12 +32,6 @@ public class EditorController extends PageController {
     private Button italicButton;
     @FXML
     private Button underlineButton;
-    @FXML
-    private Button cutButton;
-    @FXML
-    private Button copyButton;
-    @FXML
-    private Button pasteButton;
     // TAB PANE RELATED
     //-----------------------------
     @FXML
@@ -78,6 +72,50 @@ public class EditorController extends PageController {
      */
     @Override
     public void initElements() {
-
+        initMenuBar();
+        initMoreMenuBar();
     }
+
+    /**
+     * Initializes the menu bar items of the page that can only be clicked when
+     * a file has been opened
+     */
+    private void initMoreMenuBar() {
+        saveButton.setOnAction(e -> {
+            String bodyText = getBodyText();
+        });
+
+        saveAsButton.setOnAction(e -> {
+
+        });
+
+        undoButton.setOnAction(e -> {
+
+        });
+
+        redoButton.setOnAction(e -> {
+
+        });
+
+        selectAllButton.setOnAction(e -> {
+
+        });
+    }
+
+    /**
+     * Gets the text from the text area
+     *
+     * @return the text entered
+     */
+    private String getBodyText() {
+        return editArea.getText();
+    }
+
+    /**
+     * Saves the body text to the page file
+     */
+
 }
+
+
+
