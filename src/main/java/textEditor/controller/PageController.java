@@ -1,5 +1,7 @@
 package textEditor.controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -9,7 +11,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import textEditor.model.PageFile;
+import textEditor.view.EditorView;
+import textEditor.view.OpenView;
 import textEditor.view.PageView;
+import textEditor.view.SettingsView;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Represents a tool for controlling the display and functionality of
@@ -31,39 +41,39 @@ public abstract class PageController {
     // MENU BAR RELATED
     //-----------------------------
     @FXML
-    private MenuBar menuBar;
+    protected MenuBar menuBar;
     // FILE DROPDOWN
     //---------------
     @FXML
-    private Menu fileButton;
+    protected Menu fileButton;
     @FXML
-    private MenuItem newButton;
+    protected MenuItem newButton;
     @FXML
-    private MenuItem openButton;
+    protected MenuItem openButton;
     @FXML
-    private MenuItem saveButton;
+    protected MenuItem saveButton;
     @FXML
-    private MenuItem saveAsButton;
+    protected MenuItem saveAsButton;
     @FXML
-    private MenuItem preferencesButton;
+    protected MenuItem settingsButton;
     @FXML
-    private MenuItem quitButton;
+    protected MenuItem quitButton;
     // EDIT DROPDOWN
     //---------------
     @FXML
-    private Menu editButton;
+    protected Menu editButton;
     @FXML
-    private MenuItem undoButton;
+    protected MenuItem undoButton;
     @FXML
-    private MenuItem redoButton;
+    protected MenuItem redoButton;
     @FXML
-    private MenuItem selectAllButton;
+    protected MenuItem selectAllButton;
     // HELP DROPDOWN
     //---------------
     @FXML
-    private Menu helpButton;
+    protected Menu helpButton;
     @FXML
-    private MenuItem aboutButton;
+    protected MenuItem aboutButton;
 
 
     /**
@@ -89,11 +99,46 @@ public abstract class PageController {
     public abstract void initElements();
 
     /**
-     * Initializes the menu bar of the page
+     * Initializes the menu bar of the page, only adding functionality to the menu buttons
+     * that can be clicked even if a file has not yet been opened
      */
     public void initMenuBar() {
-        // TODO: write this
+        newButton.setOnAction(e -> {
+            EditorController controller = new EditorController(new PageFile(), this.stage);
+            switchScene("Untitled", new EditorView(controller), controller);
+        });
+
+        openButton.setOnAction(e -> {
+            OpenController controller = new OpenController(this.pageFile, this.stage);
+            switchScene("Open File", new OpenView(controller), controller);
+        });
+
+        settingsButton.setOnAction(e -> {
+            SettingsController controller = new SettingsController(this.pageFile, this.stage);
+            switchScene("Settings", new SettingsView(controller), controller);
+        });
+
+        quitButton.setOnAction(e -> stage.close());
+        aboutButton.setOnAction(e -> openWebPage("https://github.com/Mandy-cyber/Text-Editor"));
     }
+
+    /**
+     * Opens the given webpage in the user's browser.
+     *
+     * @param url the url for the webpage being visited
+     * @throws RuntimeException if the user's default browser is not found/fails to be launched
+     *                          or if the given url could not be parsed as a URI reference.
+     */
+    protected void openWebPage(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+            System.out.println("This was ran");
+        } catch (IOException | URISyntaxException ex) {
+            System.out.println("This was not ran");
+            throw new RuntimeException(ex);
+        }
+    }
+
 
     /**
      * Switches to the scene represented in the given view and sets a new title
