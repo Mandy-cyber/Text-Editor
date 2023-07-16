@@ -7,6 +7,8 @@ import java.io.File;
  */
 public interface FileWriter {
 
+    // TODO: consider making this a static method (yes interfaces can have static methods)
+
     /**
      * Writes the given content to the given html file
      *
