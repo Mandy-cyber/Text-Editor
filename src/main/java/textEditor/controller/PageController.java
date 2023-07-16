@@ -2,6 +2,10 @@ package textEditor.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import textEditor.model.PageFile;
@@ -12,6 +16,8 @@ import textEditor.view.PageView;
  * a page in the Text Editor app
  */
 public abstract class PageController {
+    // GENERAL
+    //-----------------------------
     protected PageFile pageFile;
     protected Stage stage;
     @FXML
@@ -20,6 +26,53 @@ public abstract class PageController {
     protected VBox fullBody;
     @FXML
     protected VBox mainBody;
+    @FXML
+    protected HBox footerBody;
+    // MENU BAR RELATED
+    //-----------------------------
+    @FXML
+    private MenuBar menuBar;
+    // FILE DROPDOWN
+    //---------------
+    @FXML
+    private Menu fileButton;
+    @FXML
+    private MenuItem newButton;
+    @FXML
+    private MenuItem openButton;
+    @FXML
+    private MenuItem saveButton;
+    @FXML
+    private MenuItem saveAsButton;
+    @FXML
+    private MenuItem preferencesButton;
+    @FXML
+    private MenuItem quitButton;
+    // EDIT DROPDOWN
+    //---------------
+    @FXML
+    private Menu editButton;
+    @FXML
+    private MenuItem undoButton;
+    @FXML
+    private MenuItem redoButton;
+    @FXML
+    private MenuItem cutButton;
+    @FXML
+    private MenuItem copyButton;
+    @FXML
+    private MenuItem pasteButton;
+    @FXML
+    private MenuItem deleteButton;
+    @FXML
+    private MenuItem selectAllButton;
+    // HELP DROPDOWN
+    //---------------
+    @FXML
+    private Menu helpButton;
+    @FXML
+    private MenuItem aboutButton;
+
 
     /**
      * Initializes a new PageController with the given page on the given stage
