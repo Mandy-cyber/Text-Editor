@@ -14,7 +14,16 @@ module textEditor {
     requires org.jetbrains.annotations;
 
     opens textEditor to javafx.fxml;
+
     exports textEditor;
+    exports textEditor.controller;
+    exports textEditor.model;
+    exports textEditor.model.io.readers;
+    exports textEditor.model.io.writers;
+    exports textEditor.view;
+
+    opens textEditor.controller to javafx.fxml;
+    opens textEditor.view to javafx.fxml;
 }
 
 
