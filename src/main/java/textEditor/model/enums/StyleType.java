@@ -15,9 +15,24 @@ public enum StyleType {
     FONT_COLOR("color:"),
 
     /**
-     * The font style/family of a font
+     * The family of a font
      */
-    FONT_STYLE("font-family:"),
+    FONT_FAMILY("font-family:"),
+
+    /**
+     * The weight of the font (i.e. boldness)
+     */
+    FONT_WEIGHT("font-weight:bold;"),
+
+    /**
+     * The style of the font (i.e. italic)
+     */
+    FONT_STYLE("font-style:italic;"),
+
+    /**
+     * The font's decoration (i.e. underline)
+     */
+    TEXT_DECORATION("text-decoration:underline;"),
 
     /**
      * The background color of an element

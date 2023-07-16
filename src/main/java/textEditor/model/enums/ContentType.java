@@ -45,22 +45,7 @@ public enum ContentType {
     /**
      * Equivalent of html 'p' tag
      */
-    PARA(new ArrayList<>(List.of("<p>", "</p>"))),
-
-    /**
-     * Equivalent of html  'strong' tag
-     */
-    BOLD(new ArrayList<>(List.of("<strong>", "</strong>"))),
-
-    /**
-     * Equivalent of html  'em' tag
-     */
-    ITALIC(new ArrayList<>(List.of("<em>", "</em>"))),
-
-    /**
-     * Equivalent of html  'u' tag
-     */
-    UNDERLINE(new ArrayList<>(List.of("<u>", "</u>")));
+    PARA(new ArrayList<>(List.of("<p>", "</p>")));
 
     private final ArrayList<String> htmlTags;
 
@@ -81,4 +66,32 @@ public enum ContentType {
     public ArrayList<String> getHtmlTags() {
         return htmlTags;
     }
+
+    /**
+     * Determines what type of content the given string is.
+     *
+     * @param str the string whose content type is being determined
+     * @return the string's content type
+     */
+    public static ContentType determineType(String str) {
+        if (str.startsWith("# ")) {
+            return ContentType.H1;
+        } else if (str.startsWith("## ")) {
+            return ContentType.H2;
+        } else if (str.startsWith("### ")) {
+            return ContentType.H3;
+        } else if (str.startsWith("#### ")) {
+            return ContentType.H4;
+        } else if (str.startsWith("##### ")) {
+            return ContentType.H5;
+        } else if (str.startsWith("###### ")) {
+            return ContentType.H6;
+        } else {
+            return ContentType.PARA;
+        }
+    }
+
+    /**
+     *
+     */
 }
