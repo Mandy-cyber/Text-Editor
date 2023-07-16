@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
@@ -17,60 +18,58 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="fullBody" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1"
-      xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="fullBody" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
     <Menu fx:id="fileButton" mnemonicParsing="false" text="File">
-      <MenuItem fx:id="newButton" mnemonicParsing="false" text="New"/>
-      <MenuItem fx:id="openButton" mnemonicParsing="false" text="Open…"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem fx:id="saveButton" mnemonicParsing="false" text="Save"/>
-      <MenuItem fx:id="saveAsButton" mnemonicParsing="false" text="Save As…"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem fx:id="preferencesButton" mnemonicParsing="false" text="Preferences…"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem fx:id="quitButton" mnemonicParsing="false" text="Quit"/>
+      <MenuItem fx:id="newButton" mnemonicParsing="false" text="New" />
+      <MenuItem fx:id="openButton" mnemonicParsing="false" text="Open…" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="saveButton" mnemonicParsing="false" text="Save" />
+      <MenuItem fx:id="saveAsButton" mnemonicParsing="false" text="Save As…" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="preferencesButton" mnemonicParsing="false" text="Preferences…" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="quitButton" mnemonicParsing="false" text="Quit" />
     </Menu>
     <Menu fx:id="editButton" mnemonicParsing="false" text="Edit">
-      <MenuItem fx:id="undoButton" mnemonicParsing="false" text="Undo"/>
-      <MenuItem fx:id="redoButton" mnemonicParsing="false" text="Redo"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem fx:id="cutButton" mnemonicParsing="false" text="Cut"/>
-      <MenuItem fx:id="copyButton" mnemonicParsing="false" text="Copy"/>
-      <MenuItem fx:id="pasteButton" mnemonicParsing="false" text="Paste"/>
-      <MenuItem fx:id="deleteButton" mnemonicParsing="false" text="Delete"/>
-      <SeparatorMenuItem mnemonicParsing="false"/>
-      <MenuItem fx:id="selectAllButton" mnemonicParsing="false" text="Select All"/>
+      <MenuItem fx:id="undoButton" mnemonicParsing="false" text="Undo" />
+      <MenuItem fx:id="redoButton" mnemonicParsing="false" text="Redo" />
+      <SeparatorMenuItem mnemonicParsing="false" />
+      <MenuItem fx:id="selectAllButton" mnemonicParsing="false" text="Select All" />
     </Menu>
     <Menu fx:id="helpButton" mnemonicParsing="false" text="Help">
-      <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About"/>
+      <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About" />
     </Menu>
   </MenuBar>
   <VBox fx:id="mainBody" prefHeight="554.0" prefWidth="900.0">
     <ToolBar fx:id="toolBar" prefHeight="40.0" prefWidth="200.0">
-      <ChoiceBox fx:id="textCategorySelector" prefWidth="150.0"/>
-      <ChoiceBox fx:id="fontSizeSelector" prefHeight="25.0" prefWidth="53.0"/>
-      <ChoiceBox fx:id="fontStyleSelector" prefWidth="150.0"/>
-      <ColorPicker fx:id="fontColorSelector" prefHeight="25.0" prefWidth="98.0"/>
-      <Button fx:id="boldButton" mnemonicParsing="false" text="Bold"/>
-      <Button fx:id="italicButton" mnemonicParsing="false" text="Italic"/>
-      <Button fx:id="underlineButton" mnemonicParsing="false" text="Underline"/>
+      <ChoiceBox fx:id="textCategorySelector" prefWidth="150.0" />
+      <ChoiceBox fx:id="fontSizeSelector" prefHeight="25.0" prefWidth="53.0" />
+      <ChoiceBox fx:id="fontStyleSelector" prefWidth="150.0" />
+      <ColorPicker fx:id="fontColorSelector" prefHeight="25.0" prefWidth="98.0" />
+      <Button fx:id="boldButton" mnemonicParsing="false" text="Bold" />
+      <Button fx:id="italicButton" mnemonicParsing="false" text="Italic" />
+      <Button fx:id="underlineButton" mnemonicParsing="false" text="Underline" />
+         <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="13.0" />
+         <Button fx:id="cutButton" mnemonicParsing="false" text="Cut" />
+         <Button fx:id="copyButton" mnemonicParsing="false" text="Copy" />
+         <Button fx:id="pasteButton" mnemonicParsing="false" text="Paste" />
     </ToolBar>
-    <TextArea fx:id="writingArea" prefHeight="528.0" prefWidth="900.0"/>
+    <TextArea fx:id="writingArea" prefHeight="528.0" prefWidth="900.0" />
   </VBox>
   <HBox id="HBox" fx:id="footerBody" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
     <padding>
-      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
     </padding>
     <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
       <font>
-        <Font size="11.0" fx:id="x3"/>
+        <Font size="11.0" fx:id="x3" />
       </font>
       <textFill>
-        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4"/>
+        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
       </textFill>
     </Label>
-    <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS"/>
-    <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER"/>
+    <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+    <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
   </HBox>
 </VBox>

@@ -57,14 +57,6 @@ public abstract class PageController {
     @FXML
     private MenuItem redoButton;
     @FXML
-    private MenuItem cutButton;
-    @FXML
-    private MenuItem copyButton;
-    @FXML
-    private MenuItem pasteButton;
-    @FXML
-    private MenuItem deleteButton;
-    @FXML
     private MenuItem selectAllButton;
     // HELP DROPDOWN
     //---------------

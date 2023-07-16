@@ -32,6 +32,12 @@ public class EditorController extends PageController {
     private Button italicButton;
     @FXML
     private Button underlineButton;
+    @FXML
+    private Button cutButton;
+    @FXML
+    private Button copyButton;
+    @FXML
+    private Button pasteButton;
     // TEXT AREA RELATED
     //-----------------------------
     @FXML
