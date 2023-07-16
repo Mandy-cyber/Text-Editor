@@ -29,8 +29,20 @@ public class Content {
     public Content(String id, ContentType type, String value, Map<StyleType, String> styling) {
         this.id = id;
         this.type = type;
-        this.value = value;
+        this.value = removeHashtags(value);
         this.styling = styling;
+    }
+
+    /**
+     * Initializes Content by determining the type using the given value.
+     *
+     * @param value (i.e. text) of the content
+     */
+    public Content(String value) {
+        this.type = ContentType.determineType(value);
+        this.id = generateId();
+        this.value = removeHashtags(value);
+        this.styling = new HashMap<>();
     }
 
     /**
@@ -43,8 +55,25 @@ public class Content {
     public Content(ContentType type, String value, Map<StyleType, String> styling) {
         this.type = type;
         this.id = generateId();
-        this.value = value;
+        this.value = removeHashtags(value);
         this.styling = styling;
+    }
+
+    /**
+     * Removes the header hashtags, if the string is a header, from the given string.
+     *
+     * @param str the string to remove #s from
+     * @return the 'cleaned' string
+     */
+    private String removeHashtags(String str) {
+        if (this.type.equals(ContentType.H1)
+                || this.type.equals(ContentType.H2)
+                || this.type.equals(ContentType.H3) || this.type.equals(ContentType.H4)
+                || this.type.equals(ContentType.H5) || this.type.equals(ContentType.H6)) {
+            String noHashtags = str.replace("#", "");
+            return noHashtags.substring(1);
+        }
+        return str;
     }
 
     /**
@@ -56,7 +85,8 @@ public class Content {
      * @param value the value (i.e. text) of the content
      * @param stylingPerId a map of content id's and their associated styling
      */
-    public Content(String id, ContentType type, String value, HashMap<String, Map<StyleType, String>> stylingPerId) {
+    public Content(String id, ContentType type, String value,
+                   HashMap<String, Map<StyleType, String>> stylingPerId) {
         this.id = id;
         this.type = type;
         this.value = value;
