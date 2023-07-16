@@ -31,7 +31,7 @@
         <MenuItem fx:id="saveButton" mnemonicParsing="false" text="Save" />
         <MenuItem fx:id="saveAsButton" mnemonicParsing="false" text="Save As…" />
         <SeparatorMenuItem mnemonicParsing="false" />
-        <MenuItem fx:id="preferencesButton" mnemonicParsing="false" text="Preferences…" />
+        <MenuItem fx:id="settingsButton" mnemonicParsing="false" text="Settings" />
         <SeparatorMenuItem mnemonicParsing="false" />
         <MenuItem fx:id="quitButton" mnemonicParsing="false" text="Quit" />
       </Menu>
