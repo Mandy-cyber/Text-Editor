@@ -6,7 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javafx.scene.web.WebView;
 import textEditor.model.PageFile;
+import java.net.URL;
 
 
 /**
@@ -14,6 +17,10 @@ import textEditor.model.PageFile;
  * the 'Editor' page in the Text Editor app
  */
 public class EditorController extends PageController {
+    // MISC
+    //-----------------------------
+    private WebView webView;
+
     // TOOL BAR RELATED
     //-----------------------------
     @FXML
@@ -72,13 +79,15 @@ public class EditorController extends PageController {
      */
     @Override
     public void initElements() {
+        this.webView = new WebView();
         initMenuBar();
         initMoreMenuBar();
+        initTabPane();
     }
 
     /**
-     * Initializes the menu bar items of the page that can only be clicked when
-     * a file has been opened
+     * Initializes the actions of the menu bar items of the page that can only
+     * be clicked when a file has been opened.
      */
     private void initMoreMenuBar() {
         saveButton.setOnAction(e -> {
@@ -103,6 +112,15 @@ public class EditorController extends PageController {
     }
 
     /**
+     * Initializes the actions of the tab pane elements
+     */
+    private void initTabPane() {
+        previewTextTab.setOnSelectionChanged(e -> {
+            if (previewTextTab.isSelected()) previewFile();
+        });
+    }
+
+    /**
      * Gets the text from the text area
      *
      * @return the text entered
@@ -112,8 +130,17 @@ public class EditorController extends PageController {
     }
 
     /**
-     * Saves the body text to the page file
+     * Saves, then displays in the 'Preview' tab, the contents of the PageFile
      */
+    private void previewFile() {
+        URL htmlUrl = getClass().getResource("/sample.html");
+        if (htmlUrl != null) {
+            webView.getEngine().load(htmlUrl.toExternalForm());
+        } else {
+            System.err.println("HTML file not found.");
+        }
+        previewArea.getChildren().setAll(webView);
+    }
 
 }
 
