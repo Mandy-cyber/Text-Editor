@@ -35,7 +35,7 @@ public class Driver extends Application {
 
         try {
             stage.setScene(view.load());
-            stage.setTitle("Testing 123");
+            stage.setTitle("Text Editor");
             controller.run();
             stage.show();
         } catch (IllegalStateException exc) {

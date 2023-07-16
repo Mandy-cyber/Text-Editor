@@ -82,7 +82,7 @@ public class EditorController extends PageController {
      */
     private void initMoreMenuBar() {
         saveButton.setOnAction(e -> {
-            String bodyText = getBodyText();
+        // String bodyText = getBodyText();
         });
 
         saveAsButton.setOnAction(e -> {

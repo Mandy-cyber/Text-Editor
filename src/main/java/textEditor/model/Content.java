@@ -29,7 +29,7 @@ public class Content {
     public Content(String id, ContentType type, String value, Map<StyleType, String> styling) {
         this.id = id;
         this.type = type;
-        this.value = removeHashtags(value);
+        this.value = value;
         this.styling = styling;
     }
 
@@ -41,7 +41,7 @@ public class Content {
     public Content(String value) {
         this.type = ContentType.determineType(value);
         this.id = generateId();
-        this.value = removeHashtags(value);
+        this.value = value;
         this.styling = new HashMap<>();
     }
 
@@ -55,25 +55,8 @@ public class Content {
     public Content(ContentType type, String value, Map<StyleType, String> styling) {
         this.type = type;
         this.id = generateId();
-        this.value = removeHashtags(value);
+        this.value = value;
         this.styling = styling;
-    }
-
-    /**
-     * Removes the header hashtags, if the string is a header, from the given string.
-     *
-     * @param str the string to remove #s from
-     * @return the 'cleaned' string
-     */
-    private String removeHashtags(String str) {
-        if (this.type.equals(ContentType.H1)
-                || this.type.equals(ContentType.H2)
-                || this.type.equals(ContentType.H3) || this.type.equals(ContentType.H4)
-                || this.type.equals(ContentType.H5) || this.type.equals(ContentType.H6)) {
-            String noHashtags = str.replace("#", "");
-            return noHashtags.substring(1);
-        }
-        return str;
     }
 
     /**
@@ -91,6 +74,23 @@ public class Content {
         this.type = type;
         this.value = value;
         this.styling = findMatchingStyle(stylingPerId);
+    }
+
+    /**
+     * Removes the header hashtags, if the string is a header, from the given string.
+     *
+     * @param str the string to remove #s from
+     * @return the 'cleaned' string
+     */
+    private String removeHashtags(String str) {
+        if (this.type.equals(ContentType.H1)
+                || this.type.equals(ContentType.H2)
+                || this.type.equals(ContentType.H3) || this.type.equals(ContentType.H4)
+                || this.type.equals(ContentType.H5) || this.type.equals(ContentType.H6)) {
+            String noHashtags = str.replace("#", "");
+            return noHashtags.substring(1);
+        }
+        return str;
     }
 
     /**
@@ -223,6 +223,7 @@ public class Content {
             return false;
         }
         return this.styling.equals(other.styling)
+                && this.value.equals(other.value)
                 && this.type.equals(other.type);
     }
 
@@ -235,7 +236,7 @@ public class Content {
         List<String> htmlTags = type.getHtmlTags();
         String openingTag = htmlTags.get(0);
         if (htmlTags.size() > 1) {
-            return openingTag + value + htmlTags.get(1) + "\n";
+            return openingTag + removeHashtags(value) + htmlTags.get(1) + "\n";
         }
         return openingTag + "\n";
     }
@@ -265,6 +266,15 @@ public class Content {
         cssBlock.append(closing);
         return cssBlock.toString();
     }
+
+//    /**
+//     * Creates a string representation of this content as markdown
+//     *
+//     * @return the content as a string of markdown
+//     */
+//    public String toMarkdown() {
+//        return "";
+//    }
 }
 
 
