@@ -1,5 +1,6 @@
 package textEditor.model.io.readers;
 
+import java.util.Scanner;
 import java.io.File;
 
 /**
@@ -16,4 +17,15 @@ public interface FileReader {
      * @throws IllegalArgumentException if the given file has the wrong extension
      */
     String read(File file);
+
+    /**
+     * Determines if the given file is valid (i.e. can be found/scanned and has the correct
+     * file extension).
+     *
+     * @param file the file to be checked
+     * @return the file's scanner if the file is valid
+     * @throws IllegalArgumentException if the file name does not end in the correct extension
+     * @throws RuntimeException if the file could not be found or read
+     */
+    Scanner isValidFile(File file);
 }

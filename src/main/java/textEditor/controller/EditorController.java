@@ -91,7 +91,7 @@ public class EditorController extends PageController {
      */
     private void initMoreMenuBar() {
         saveButton.setOnAction(e -> {
-        // String bodyText = getBodyText();
+            pageFile.savePage();
         });
 
         saveAsButton.setOnAction(e -> {
@@ -99,7 +99,6 @@ public class EditorController extends PageController {
         });
 
         undoButton.setOnAction(e -> {
-
         });
 
         redoButton.setOnAction(e -> {
@@ -115,8 +114,14 @@ public class EditorController extends PageController {
      * Initializes the actions of the tab pane elements
      */
     private void initTabPane() {
+        // save then display properly formatted text
         previewTextTab.setOnSelectionChanged(e -> {
+            pageFile.savePage();
             if (previewTextTab.isSelected()) previewFile();
+        });
+        // opens/re-opens file with properly formatted text
+        editTextTab.setOnSelectionChanged(e -> {
+
         });
     }
 
@@ -130,7 +135,7 @@ public class EditorController extends PageController {
     }
 
     /**
-     * Saves, then displays in the 'Preview' tab, the contents of the PageFile
+     * Displays, in the 'Preview' tab, the contents of the PageFile
      */
     private void previewFile() {
         URL htmlUrl = getClass().getResource("/sample.html");

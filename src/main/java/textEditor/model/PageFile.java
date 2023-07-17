@@ -141,8 +141,8 @@ public class PageFile {
      * Saves the html and css of this page in their respective files
      */
     public void savePage() {
-        new HtmlWriter().write(toHtml(), htmlFile);
-        new CssWriter().write(toCss(), cssFile);
+//        new HtmlWriter().write(toHtml(), htmlFile);
+//        new CssWriter().write(toCss(), cssFile);
     }
 
 }

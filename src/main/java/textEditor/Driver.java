@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import textEditor.controller.EditorController;
 import textEditor.model.PageFile;
+import textEditor.model.io.readers.HtmlReader;
 import textEditor.view.EditorView;
 import textEditor.view.PageView;
+
+import java.io.File;
 
 public class Driver extends Application {
 
@@ -43,5 +46,7 @@ public class Driver extends Application {
             System.out.println("----------------------------------------------");
             throw exc;
         }
+
+        System.out.println(new HtmlReader().read(new File("src/main/resources/sample.html")));
     }
 }
