@@ -74,24 +74,21 @@ public enum ContentType {
      * @return the string's content type
      */
     public static ContentType determineType(String str) {
-        if (str.startsWith("# ")) {
+        if (str.startsWith("# ") || str.equals("h1")) {
             return ContentType.H1;
-        } else if (str.startsWith("## ")) {
+        } else if (str.startsWith("## ") || str.equals("h2")) {
             return ContentType.H2;
-        } else if (str.startsWith("### ")) {
+        } else if (str.startsWith("### ") || str.equals("h3")) {
             return ContentType.H3;
-        } else if (str.startsWith("#### ")) {
+        } else if (str.startsWith("#### ") || str.equals("h4")) {
             return ContentType.H4;
-        } else if (str.startsWith("##### ")) {
+        } else if (str.startsWith("##### ") || str.equals("h5")) {
             return ContentType.H5;
-        } else if (str.startsWith("###### ")) {
+        } else if (str.startsWith("###### ") || str.equals("h6")) {
             return ContentType.H6;
         } else {
             return ContentType.PARA;
         }
     }
 
-    /**
-     *
-     */
 }
