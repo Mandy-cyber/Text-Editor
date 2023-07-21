@@ -61,6 +61,9 @@ dependencies {
     // https://github.com/webcompere/system-stubs
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.12.4'
     testImplementation group: 'uk.org.webcompere', name: 'system-stubs-jupiter', version: '2.0.2'
+
+    // jsoup HTML parser library @ https://jsoup.org/
+    implementation 'org.jsoup:jsoup:1.16.1'
 }
 
 test {

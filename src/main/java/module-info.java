@@ -13,6 +13,7 @@ module textEditor {
     requires org.controlsfx.controls;
     requires java.desktop;
     requires org.jetbrains.annotations;
+    requires org.jsoup;
 
     opens textEditor to javafx.fxml;
 
