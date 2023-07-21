@@ -34,13 +34,28 @@ public class Content {
     }
 
     /**
-     * Initializes Content by determining the type using the given value.
+     * Initializes Content of the given type and value
      *
-     * @param value (i.e. text) of the content
+     * @param type the type of the content
+     * @param value the value (i.e. text) of the content
      */
-    public Content(String value) {
-        this.type = ContentType.determineType(value);
+    public Content(ContentType type, String value) {
+        this.type = type;
         this.id = generateId();
+        this.value = value;
+        this.styling = new HashMap<>();
+    }
+
+    /**
+     * Initializes Content using the given id and value
+     *
+     * @param id this content's unique identification
+     * @param type the type of the content
+     * @param value the value (i.e. text) of the content
+     */
+    public Content(String id, ContentType type, String value) {
+        this.type = type;
+        this.id = id;
         this.value = value;
         this.styling = new HashMap<>();
     }
@@ -83,12 +98,15 @@ public class Content {
      * @return the 'cleaned' string
      */
     private String removeHashtags(String str) {
-        if (this.type.equals(ContentType.H1)
+        if ((this.type.equals(ContentType.H1)
                 || this.type.equals(ContentType.H2)
-                || this.type.equals(ContentType.H3) || this.type.equals(ContentType.H4)
-                || this.type.equals(ContentType.H5) || this.type.equals(ContentType.H6)) {
-            String noHashtags = str.replace("#", "");
-            return noHashtags.substring(1);
+                || this.type.equals(ContentType.H3)
+                || this.type.equals(ContentType.H4)
+                || this.type.equals(ContentType.H5)
+                || this.type.equals(ContentType.H6))
+                && str.startsWith("# ")) {
+
+            return str.replace("# ", "");
         }
         return str;
     }
@@ -106,7 +124,7 @@ public class Content {
 
         StringBuilder id = new StringBuilder();
         for (int i = 0; i < this.idSize; i++) {
-            id.append(this.alphaNumeric.charAt(this.idRandomizer.nextInt(36)));
+            id.append(this.alphaNumeric.charAt(this.idRandomizer.nextInt(26)));
         }
         return type + id;
     }
