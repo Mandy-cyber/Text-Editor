@@ -1,14 +1,17 @@
 package textEditor.model.io.readers;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import textEditor.model.Content;
+import textEditor.model.enums.ContentType;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a tool for reading content from a html file
@@ -63,36 +66,22 @@ public class HtmlReader implements FileReader {
      * @return a list of the PageFile content found
      */
     public List<Content> htmlParser(String htmlString) {
-        List<Content> content = new ArrayList<>();
-        Scanner scanner = new Scanner(htmlString);
+        List<Content> contents = new ArrayList<>();
+        // Get all html elements in the body
+        Document doc = Jsoup.parse(htmlString);
+        Elements elements = doc.body().select("*");
+        elements.remove(0);
 
-        return content;
-    }
+        for (Element element : elements) {
+            // Construct PageContent
+            String id = element.attr("id");
+            ContentType type = ContentType.determineType(element.tagName());
+            String value = element.text();
 
-    /**
-     * Finds the 'id' of the html element from the given html string
-     *
-     * @param htmlString the string of html
-     * @return the id of the element in the string
-     */
-    private String findElementId(String htmlString) {
-        Pattern pattern = Pattern.compile("id=['\"](.*?)['\"]");
-        Matcher matcher = pattern.matcher(htmlString);
-        if (matcher.find()) {
-            return matcher.group(1);
-        } else {
-            return "";
+            Content content = id.equals("") ? new Content(type, value) : new Content(id, type, value);
+            contents.add(content);
         }
-    }
-
-    /**
-     * Finds the paragraph text enclosed in the given html string
-     *
-     * @param htmlString the string of html
-     * @return the paragraph text
-     */
-    private String findParagraphText(String htmlString) {
-        Pattern pattern = Pattern.compile("=['\"](.*?)['\"]");
+        return contents;
     }
 }
 
