@@ -91,4 +91,21 @@ public enum ContentType {
         }
     }
 
+    /**
+     * Determines the equivalent markdown hashtag for this ContentType.
+     *
+     * e.g. # = h1
+     *      ## - h2
+     *
+     * @return the hashtag equivalent of this ContentType
+     */
+    public String hashtagEquivalent() {
+        // only headers have hashtags
+        if (this.equals(ContentType.PARA) || this.equals(ContentType.BR)) {
+            return "";
+        }
+        int numHashtags = Integer.parseInt(this.toString().replace("H", ""));
+        return "#".repeat(numHashtags) + " ";
+    }
+
 }

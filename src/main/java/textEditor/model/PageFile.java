@@ -1,5 +1,8 @@
 package textEditor.model;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import textEditor.model.io.writers.HtmlWriter;
 
 import java.io.File;
@@ -30,7 +33,46 @@ public class PageFile {
     public PageFile() {
         this.pageContent = new ArrayList<>();
         // TODO: add method that will increment the file name if it already exists
-        this.htmlFile = new File("src/main/resources/untitled.html");
+        this.htmlFile = new File("src/main/resources/sample.html");
+    }
+
+
+    /**
+     * Creates the html for this page including its css styling
+     *
+     * @return the string of html for this page
+     */
+    public String toHtml() {
+        StringBuilder html = new StringBuilder();
+        for (Content content: pageContent) {
+            html.append(content.toHtml());
+        }
+        return html.toString();
+    }
+
+    /**
+     * Returns the 'plaintext' version of this PageFile.
+     *
+     * @return this page's plaintext
+     */
+    public String toPlainText() {
+        StringBuilder plainText = new StringBuilder();
+
+        for (Content content : pageContent) {
+            String newLine = content.toPlainText() + "\n";
+            plainText.append(newLine);
+        }
+        return plainText.toString();
+    }
+
+
+
+    /**
+     * Saves the html of this page
+     */
+    public void savePage() {
+        // TODO: fix this page
+//        new HtmlWriter().write(this.toHtml(), this.htmlFile);
     }
 
     /**
@@ -83,28 +125,6 @@ public class PageFile {
         }
         this.htmlFile = file;
         return true;
-    }
-
-
-    /**
-     * Creates the html for this page including its css styling
-     *
-     * @return the string of html for this page
-     */
-    public String toHtml() {
-        StringBuilder html = new StringBuilder();
-        for (Content content: pageContent) {
-            html.append(content.toHtml());
-        }
-        return html.toString();
-    }
-
-
-    /**
-     * Saves the html of this page
-     */
-    public void savePage() {
-        new HtmlWriter().write(this.toHtml(), this.htmlFile);
     }
 
 }

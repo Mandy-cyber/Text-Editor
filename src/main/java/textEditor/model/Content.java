@@ -230,6 +230,15 @@ public class Content {
         return cssText.toString();
     }
 
+    /**
+     * Returns the 'plaintext' version of this Content.
+     *
+     * @return this content's plaintext
+     */
+    public String toPlainText() {
+        return this.type.hashtagEquivalent() + this.value;
+    }
+
 
     /**
      * Gets the identification of this content
