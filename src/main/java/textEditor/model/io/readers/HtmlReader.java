@@ -68,10 +68,10 @@ public class HtmlReader implements FileReader {
         List<Content> contents = new ArrayList<>();
         // Get all html elements in the body
         Document doc = Jsoup.parse(htmlString);
-        Elements elements = doc.body().select("*");
-        elements.remove(0);
+        Elements htmlElements = doc.body().select("*");
+        htmlElements.remove(0);
 
-        for (Element element : elements) {
+        for (Element element : htmlElements) {
             // get styling
             String cssText = element.attr("style");
             Map<StyleType, String> styling = this.cssParser(cssText);
@@ -90,7 +90,7 @@ public class HtmlReader implements FileReader {
     /**
      * Parses the given string of css and represents it as a map of styles
      *
-     * @param cssString - the string of css to parse
+     * @param cssString the string of css to parse
      * @return a map of styles
      */
     public Map<StyleType, String> cssParser(String cssString) {
