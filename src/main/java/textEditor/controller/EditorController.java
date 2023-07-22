@@ -8,8 +8,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javafx.scene.web.WebView;
+import textEditor.model.Content;
 import textEditor.model.PageFile;
+import textEditor.model.io.readers.HtmlReader;
+
 import java.net.URL;
+import java.util.List;
 
 
 /**
@@ -64,6 +68,11 @@ public class EditorController extends PageController {
      */
     public EditorController(PageFile pageFile, Stage stage) {
         super(pageFile, stage);
+        // get the content of the page
+        HtmlReader reader = new HtmlReader();
+        String htmlText = reader.read(pageFile.getHtmlFile());
+        List<Content> contents = reader.htmlParser(htmlText);
+        pageFile.setPageContent(contents);
     }
 
     /**
@@ -80,6 +89,8 @@ public class EditorController extends PageController {
     @Override
     public void initElements() {
         this.webView = new WebView();
+        editArea.setWrapText(true);
+        editArea.setText(pageFile.toPlainText());
         initMenuBar();
         initMoreMenuBar();
         initTabPane();
@@ -117,11 +128,16 @@ public class EditorController extends PageController {
         // save then display properly formatted text
         previewTextTab.setOnSelectionChanged(e -> {
             pageFile.savePage();
-            if (previewTextTab.isSelected()) previewFile();
+            if (previewTextTab.isSelected()) {
+                previewFile();
+            }
         });
         // opens/re-opens file with properly formatted text
         editTextTab.setOnSelectionChanged(e -> {
-
+            pageFile.savePage();
+            if (editTextTab.isSelected()) {
+                editArea.setText(pageFile.toPlainText());
+            }
         });
     }
 
@@ -130,7 +146,7 @@ public class EditorController extends PageController {
      *
      * @return the text entered
      */
-    private String getBodyText() {
+    private String bodyText() {
         return editArea.getText();
     }
 
@@ -138,7 +154,8 @@ public class EditorController extends PageController {
      * Displays, in the 'Preview' tab, the contents of the PageFile
      */
     private void previewFile() {
-        URL htmlUrl = getClass().getResource("/sample.html");
+        String fileName = this.pageFile.getHtmlFile().getName();
+        URL htmlUrl = getClass().getResource("/" + fileName);
         if (htmlUrl != null) {
             webView.getEngine().load(htmlUrl.toExternalForm());
         } else {
