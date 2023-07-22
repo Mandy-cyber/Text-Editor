@@ -8,6 +8,17 @@ import java.nio.file.Path;
  * Represents a tool for writing to a html file
  */
 public class HtmlWriter implements FileWriter {
+    String htmlFileStart = """
+            <html lang="en">
+            <head>
+            <title>Sample Page</title>
+            </head>
+            <body>
+            """;
+    String htmlFileEnd = """
+            </body>
+            </html>
+            """;
     /**
      * Writes the given html content to the given html file
      *
@@ -24,8 +35,9 @@ public class HtmlWriter implements FileWriter {
         }
 
         // is a html file
+        String fullHtml = htmlFileStart + content + htmlFileEnd;
         Path p = file.toPath();
-        byte[] data = content.getBytes();
+        byte[] data = fullHtml.getBytes();
         try {
             Files.write(p, data);
         } catch (Exception e) {
