@@ -253,8 +253,14 @@ public class Content {
     public String toHtml() {
         List<String> htmlTags = type.getHtmlTags();
         String openingTag = htmlTags.get(0);
+
         if (htmlTags.size() > 1) {
-            return openingTag + removeHashtags(value) + htmlTags.get(1) + "\n";
+            String html =
+                    openingTag.substring(0, openingTag.length() - 1)
+                    + " id=\"" + this.id + "\">"
+                    + removeHashtags(value)
+                    + htmlTags.get(1) + "\n";
+            return html;
         }
         return openingTag + "\n";
     }
