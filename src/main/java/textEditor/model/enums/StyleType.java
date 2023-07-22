@@ -22,17 +22,17 @@ public enum StyleType {
     /**
      * The weight of the font (i.e. boldness)
      */
-    FONT_WEIGHT("font-weight:bold;"),
+    FONT_WEIGHT("font-weight:"),
 
     /**
      * The style of the font (i.e. italic)
      */
-    FONT_STYLE("font-style:italic;"),
+    FONT_STYLE("font-style:"),
 
     /**
      * The font's decoration (i.e. underline)
      */
-    TEXT_DECORATION("text-decoration:underline;"),
+    TEXT_DECORATION("text-decoration:"),
 
     /**
      * The background color of an element
@@ -58,4 +58,33 @@ public enum StyleType {
     public String attr() {
         return this.attr;
     }
+
+    /**
+     * Determines the style type from the given string
+     *
+     * @param cssStr a string of css
+     * @return the StyleType of the css
+     * @throws IllegalArgumentException if a style type could not be found for the given string
+     */
+    public static StyleType determineType(String cssStr) {
+        return switch (cssStr) {
+            case "font-size" -> StyleType.FONT_SIZE;
+            case "color" -> StyleType.FONT_COLOR;
+            case "font-family" -> StyleType.FONT_FAMILY;
+            case "font-weight" -> StyleType.FONT_WEIGHT;
+            case "font-style" -> StyleType.FONT_STYLE;
+            case "text-decoration" -> StyleType.TEXT_DECORATION;
+            case "background-color" -> StyleType.BG_COLOR;
+            default -> throw new IllegalArgumentException("Invalid css string provided.");
+        };
+    }
 }
+
+
+
+
+
+
+
+
+

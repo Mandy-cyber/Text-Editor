@@ -1,6 +1,5 @@
 package textEditor.model;
 
-import textEditor.model.io.writers.CssWriter;
 import textEditor.model.io.writers.HtmlWriter;
 
 import java.io.File;
@@ -13,19 +12,16 @@ import java.util.List;
 public class PageFile {
     private List<Content> pageContent;
     private File htmlFile;
-    private File cssFile;
 
     /**
-     * Initializes a PageFile with the given content and associated files
+     * Initializes a PageFile with the given content and html file
      *
      * @param pageContent the content of the page
      * @param htmlFile the file with the page's html
-     * @param cssFile the file with the page's css
      */
-    public PageFile(List<Content> pageContent, File htmlFile, File cssFile) {
+    public PageFile(List<Content> pageContent, File htmlFile) {
         this.pageContent = pageContent;
         this.htmlFile = htmlFile;
-        this.cssFile = cssFile;
     }
 
     /**
@@ -33,6 +29,8 @@ public class PageFile {
      */
     public PageFile() {
         this.pageContent = new ArrayList<>();
+        // TODO: add method that will increment the file name if it already exists
+        this.htmlFile = new File("src/main/resources/untitled.html");
     }
 
     /**
@@ -87,32 +85,9 @@ public class PageFile {
         return true;
     }
 
-    /**
-     * Gets the css file associated with this page
-     *
-     * @return this page's css file
-     */
-    public File getCssFile() {
-        return this.cssFile;
-    }
 
     /**
-     * Sets the css file to be associated with this page if a valid file is provided
-     * (i.e. ends with .css)
-     *
-     * @param file the page's new html file
-     * @return if the file could be set
-     */
-    public boolean setCssFile(File file) {
-        if (!file.getName().endsWith(".css")) {
-            return false;
-        }
-        this.cssFile = file;
-        return true;
-    }
-
-    /**
-     * Creates the html for this page
+     * Creates the html for this page including its css styling
      *
      * @return the string of html for this page
      */
@@ -124,25 +99,12 @@ public class PageFile {
         return html.toString();
     }
 
-    /**
-     * Creates the css for this page
-     *
-     * @return the string of css for this page
-     */
-    public String toCss() {
-        StringBuilder css = new StringBuilder();
-        for (Content content: pageContent) {
-            css.append(content.toCss());
-        }
-        return css.toString();
-    }
 
     /**
-     * Saves the html and css of this page in their respective files
+     * Saves the html of this page
      */
     public void savePage() {
-//        new HtmlWriter().write(toHtml(), htmlFile);
-//        new CssWriter().write(toCss(), cssFile);
+        new HtmlWriter().write(this.toHtml(), this.htmlFile);
     }
 
 }

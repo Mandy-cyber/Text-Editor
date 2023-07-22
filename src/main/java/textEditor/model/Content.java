@@ -140,6 +140,98 @@ public class Content {
     }
 
     /**
+     * Adds the given style to this content's existing styling
+     *
+     * @param style the new styling to be added
+     * @param value the value of the style
+     * @return if the new style could be added (i.e. was valid)
+     */
+    public boolean addStyle(StyleType style, String value) {
+        if (isValidStyling(style, value)) {
+            this.styling.put(style, value);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Determines whether, or not, the given styling is valid
+     * TODO: determine what this means lol
+     */
+    private boolean isValidStyling(StyleType style, String value) {
+        return false;
+    }
+
+    /**
+     * Determines if this content shares the same type and styling as the given content
+     *
+     * @param otherContent the other content
+     * @return if the contents are the same
+     */
+    @Override
+    public boolean equals(Object otherContent) {
+        if (otherContent == this) {
+            return true;
+        }
+        if (!(otherContent instanceof Content other)) {
+            return false;
+        }
+        return this.styling.equals(other.styling)
+                && this.value.equals(other.value)
+                && this.type.equals(other.type);
+    }
+
+    /**
+     * Creates a string representation of this content enclosed in html tags
+     *
+     * @return the content as a string of html
+     */
+    public String toHtml() {
+        List<String> htmlTags = type.getHtmlTags();
+        String openingTag = htmlTags.get(0);
+
+        if (htmlTags.size() > 1) {
+            String html =
+                    openingTag.substring(0, openingTag.length() - 1)
+                    + " id=\"" + this.id + '"'
+                    + this.toCss() + '>'
+                    + removeHashtags(value)
+                    + htmlTags.get(1) + "\n";
+            return html;
+        }
+        return openingTag + "\n";
+    }
+
+    /**
+     * Creates a string representation of this content as a
+     * style attribute (i.e. style="....")
+     *
+     * @return the content as a style attribute string
+     */
+    private String toCss() {
+        // opening
+        StringBuilder cssText = new StringBuilder();
+        String opening = " style=\"";
+        cssText.append(opening);
+
+        // body - turning into list to be able to index styles
+        List<Entry<StyleType, String>> styles = new ArrayList<>(this.styling.entrySet());
+        for (int i = 0; i < styles.size(); i++) {
+            Entry<StyleType, String> style = styles.get(i);
+            StyleType styleType = style.getKey();
+            String styleText = styleType.attr() + style.getValue() + ";";
+            cssText.append(styleText);
+        }
+
+        // closing
+        char closing = '"';
+        cssText.append(closing);
+        return cssText.toString();
+    }
+
+
+    /**
      * Gets the identification of this content
      *
      * @return the content's id
@@ -202,103 +294,6 @@ public class Content {
         this.styling = styling;
     }
 
-    /**
-     * Adds the given style to this content's existing styling
-     *
-     * @param style the new styling to be added
-     * @param value the value of the style
-     * @return if the new style could be added (i.e. was valid)
-     */
-    public boolean addStyle(StyleType style, String value) {
-        if (isValidStyling(style, value)) {
-            this.styling.put(style, value);
-        } else {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Determines whether, or not, the given styling is valid
-     * TODO: determine what this means lol
-     */
-    private boolean isValidStyling(StyleType style, String value) {
-        return false;
-    }
-
-    /**
-     * Determines if this content shares the same type and styling as the given content
-     *
-     * @param otherContent the other content
-     * @return if the contents are the same
-     */
-    @Override
-    public boolean equals(Object otherContent) {
-        if (otherContent == this) {
-            return true;
-        }
-        if (!(otherContent instanceof Content other)) {
-            return false;
-        }
-        return this.styling.equals(other.styling)
-                && this.value.equals(other.value)
-                && this.type.equals(other.type);
-    }
-
-    /**
-     * Creates a string representation of this content enclosed in html tags
-     *
-     * @return the content as a string of html
-     */
-    public String toHtml() {
-        List<String> htmlTags = type.getHtmlTags();
-        String openingTag = htmlTags.get(0);
-
-        if (htmlTags.size() > 1) {
-            String html =
-                    openingTag.substring(0, openingTag.length() - 1)
-                    + " id=\"" + this.id + "\">"
-                    + removeHashtags(value)
-                    + htmlTags.get(1) + "\n";
-            return html;
-        }
-        return openingTag + "\n";
-    }
-
-    /**
-     * Creates a string representation of this content as css
-     *
-     * @return the content as a string block of css
-     */
-    public String toCss() {
-        // opening
-        StringBuilder cssBlock = new StringBuilder();
-        String opening = "#" + this.id + " {\n";
-        cssBlock.append(opening);
-
-        // body
-        // turning into list to be able to index styles
-        List<Entry<StyleType, String>> styles = new ArrayList<>(this.styling.entrySet());
-        for (int i = 0; i < styles.size(); i++) {
-            Entry<StyleType, String> style = styles.get(i);
-            String newLine = style.getKey().attr() + " " + style.getValue() + ";";
-            cssBlock.append(newLine);
-        }
-
-        // closing
-        String closing = "}";
-        cssBlock.append(closing);
-        return cssBlock.toString();
-    }
-
-//    /**
-//     * Creates a string representation of this content as markdown
-//     *
-//     * @return the content as a string of markdown
-//     */
-//    public String toMarkdown() {
-//        return "";
-//    }
 }
 
 

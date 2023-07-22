@@ -6,12 +6,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import textEditor.model.Content;
 import textEditor.model.enums.ContentType;
+import textEditor.model.enums.StyleType;
 
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Represents a tool for reading content from a html file
@@ -73,15 +72,44 @@ public class HtmlReader implements FileReader {
         elements.remove(0);
 
         for (Element element : elements) {
+            // get styling
+            String cssText = element.attr("style");
+            Map<StyleType, String> styling = this.cssParser(cssText);
             // Construct PageContent
             String id = element.attr("id");
             ContentType type = ContentType.determineType(element.tagName());
             String value = element.text();
-
             Content content = id.equals("") ? new Content(type, value) : new Content(id, type, value);
+            // add styling to content
+            content.setStyling(styling);
             contents.add(content);
         }
         return contents;
+    }
+
+    /**
+     * Parses the given string of css and represents it as a map of styles
+     *
+     * @param cssString - the string of css to parse
+     * @return a map of styles
+     */
+    public Map<StyleType, String> cssParser(String cssString) {
+        Map<StyleType, String> styling = new HashMap<>();
+        // style does not exist to be parsed
+        if (cssString.length() == 0) {
+            return styling;
+        }
+        // style exists to be parsed
+        List<String> styles = List.of(cssString.split(";"));
+        for (String styleStr: styles) {
+            // e.g -->  font-family: .... ;
+            String[] css = styleStr.split(":");
+            StyleType styleType = StyleType.determineType(css[0]);
+            String value = css[1].replace(";", "");
+            // add to styling map
+            styling.put(styleType, value);
+        }
+        return styling;
     }
 }
 
